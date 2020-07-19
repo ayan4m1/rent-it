@@ -12,7 +12,6 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,7 +19,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class RentIt extends JavaPlugin {
-  private ConfigModel config;
+  private ConfigModel configModel;
   private Economy economy;
   private Permission permissions;
   private Logger log;
@@ -31,47 +30,48 @@ public class RentIt extends JavaPlugin {
     return economy;
   }
 
-  public void setEconomy(Economy economy) {
-    this.economy = economy;
-  }
-
   public Permission getPermissions() {
     return permissions;
-  }
-
-  public void setPermissions(Permission permissions) {
-    this.permissions = permissions;
   }
 
   public Logger getLog() {
     return log;
   }
 
-  public void setLog(Logger log) {
-    this.log = log;
-  }
-
   public DataRegistry getDataRegistry() {
     return dataRegistry;
   }
 
-  public void setDataRegistry(DataRegistry dataRegistry) {
-    this.dataRegistry = dataRegistry;
+  public ConfigModel getConfigModel() {
+    return configModel;
   }
 
   @Override
   public void onEnable() {
-    config = new ConfigModel();
+    configModel = new ConfigModel();
     log = this.getLogger();
 
     try {
+      this.saveDefaultConfig();
       this.getConfig().load(Constants.PATH_CONFIG);
-      config.setCost(this.getConfig().getInt("cost"));
-      config.setUsages(this.getConfig().getInt("usages"));
+
+      final int cost = this.getConfig().getInt(Constants.CONFIG_KEY_COST);
+      final int usages = this.getConfig().getInt(Constants.CONFIG_KEY_USAGES);
+
+      configModel.setCost(cost);
+      configModel.setUsages(usages);
+
+      log.info(
+          String.join("", "Configured to charge $",
+              String.valueOf(cost), " for ", String.valueOf(usages), " uses"
+          )
+      );
     } catch (IOException e) {
       log.severe(String.join("" , "IOException during config read: ", e.getMessage()));
+      return;
     } catch (InvalidConfigurationException e) {
       log.severe(String.join("" , "InvalidConfigurationException during config read: ", e.getMessage()));
+      return;
     }
 
     final RegisteredServiceProvider<Permission> permsProvider = Bukkit.getServicesManager().getRegistration(Permission.class);
@@ -84,7 +84,7 @@ public class RentIt extends JavaPlugin {
     final RegisteredServiceProvider<Economy> econProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
     if (econProvider == null) {
       getServer().getPluginManager().disablePlugin(this);
-      log.severe("Unable to find Vault!");
+      log.severe("Unable to find Economy!");
       return;
     }
 
@@ -117,15 +117,5 @@ public class RentIt extends JavaPlugin {
     getServer().getServicesManager().unregister(this);
     Bukkit.getScheduler().cancelTasks(this);
     log.info("RentIt disabled!");
-  }
-
-  @Override
-  public void saveConfig() {
-    dataRegistry.save();
-  }
-
-  @Override
-  public void saveDefaultConfig() {
-    dataRegistry.save();
   }
 }
