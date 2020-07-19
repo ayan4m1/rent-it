@@ -1,25 +1,21 @@
 package in.thekreml.rentit.command;
 
+import in.thekreml.rentit.RentIt;
 import in.thekreml.rentit.constant.Constants;
-import net.milkbowl.vault.economy.Economy;
+import in.thekreml.rentit.data.Device;
+import in.thekreml.rentit.util.BlockUtils;
 import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.permission.Permission;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.logging.Logger;
-
 public class RentCommand implements CommandExecutor {
-  private final Economy economy;
-  private final Permission permissions;
-  private final Logger log;
+  private final RentIt plugin;
 
-  public RentCommand(Economy economy, Permission permissions, Logger log) {
-    this.economy = economy;
-    this.permissions = permissions;
-    this.log = log;
+  public RentCommand(RentIt plugin) {
+    this.plugin = plugin;
   }
 
   @Override
@@ -33,14 +29,130 @@ public class RentCommand implements CommandExecutor {
     }
 
     final Player player = (Player)sender;
-    if (!permissions.has(player, Constants.PERMISSION_USAGE)) {
+
+    if (args.length == 0) {
+      return onUseCommand(player, command, args);
+    }
+
+    switch (args[0].toLowerCase()) {
+      case "register":
+        return onRegisterCommand(player, command, args);
+      case "unregister":
+        return onUnregisterCommand(player, command, args);
+      default:
+        player.sendMessage(Constants.ERROR_USAGE);
+        return false;
+    }
+  }
+
+  private boolean onUseCommand(final Player player, final Command command, final String[] args) {
+    if (!plugin.getPermissions().has(player, Constants.PERMISSION_USAGE)) {
       player.sendMessage(Constants.ERROR_PERMISSION);
       return false;
     }
 
-    final EconomyResponse balanceResponse = economy.bankBalance(player.getName());
+    final Device device = getTargetDevice(player);
+    if (device == null) {
+      player.sendMessage(Constants.ERROR_NOT_REGISTERED);
+      return false;
+    }
 
-    log.info(String.valueOf(balanceResponse.balance));
+    if (device.getRenters().containsKey(player.getName())) {
+      player.sendMessage(Constants.ERROR_ALREADY_RENTED);
+      return false;
+    }
+
+    if (!plugin.getEconomy().has(player, 10)) {
+      player.sendMessage(Constants.ERROR_INSUFFICIENT_BALANCE);
+      return false;
+    }
+
+    final EconomyResponse withdrawalResponse = plugin.getEconomy().withdrawPlayer(player, 10);
+
+    if (!withdrawalResponse.transactionSuccess()) {
+      player.sendMessage(Constants.ERROR_WITHDRAWAL);
+      return false;
+    }
+
+    device.getRenters().put(player.getName(), 1);
+    plugin.getDataRegistry().save();
+    player.sendMessage("Paid $10 to rent this anvil!");
     return true;
+  }
+
+  private boolean onRegisterCommand(final Player player, final Command command, final String[] args) {
+    if (!plugin.getPermissions().has(player, Constants.PERMISSION_REGISTER)) {
+      player.sendMessage(Constants.ERROR_PERMISSION);
+      return false;
+    }
+
+    final Block anvil = getTargetAnvil(player);
+    if (anvil == null) {
+      return false;
+    }
+
+    final Device existingDevice = plugin.getDataRegistry().findDevice(anvil.getLocation());
+    if (existingDevice != null) {
+      player.sendMessage(Constants.ERROR_ALREADY_REGISTERED);
+      return false;
+    }
+
+    final Device newDevice = new Device();
+    newDevice.setOwnerName(player.getName());
+    newDevice.setPosition(anvil.getLocation().toVector());
+    newDevice.setWorldName(anvil.getWorld().getName());
+    newDevice.setBlock(anvil);
+
+    plugin.getDataRegistry().getModel().getDevices().add(newDevice);
+    player.sendMessage(Constants.MESSAGE_REGISTER);
+    return true;
+  }
+
+  private boolean onUnregisterCommand(final Player player, final Command command, final String[] args) {
+    if (!plugin.getPermissions().has(player, Constants.PERMISSION_UNREGISTER)) {
+      player.sendMessage(Constants.ERROR_PERMISSION);
+      return false;
+    }
+
+    final Device device = getTargetDevice(player);
+    if (device == null) {
+      player.sendMessage(Constants.ERROR_NOT_REGISTERED);
+      return false;
+    }
+
+    plugin.getDataRegistry().getModel().getDevices().remove(device);
+    player.sendMessage(Constants.MESSAGE_UNREGISTER);
+    return true;
+  }
+
+  private Block getTargetAnvil(final Player player) {
+    final Block targetBlock = player.getTargetBlock(6);
+    if (targetBlock == null) {
+      player.sendMessage(Constants.ERROR_NO_TARGET);
+      return null;
+    }
+
+    if (!BlockUtils.isAnvil(targetBlock)) {
+      player.sendMessage(Constants.ERROR_INVALID_TARGET);
+      return null;
+    }
+
+    return targetBlock;
+  }
+
+  private Device getTargetDevice(final Player player) {
+    final Block anvil = getTargetAnvil(player);
+    if (anvil == null) {
+      return null;
+    }
+
+    final Device existingDevice = plugin.getDataRegistry().findDevice(anvil.getLocation());
+    if (existingDevice == null) {
+      return null;
+    }
+
+    existingDevice.setBlock(anvil);
+
+    return existingDevice;
   }
 }
