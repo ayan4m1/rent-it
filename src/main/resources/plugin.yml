@@ -1,6 +1,6 @@
 main: in.thekreml.rentit.RentIt
 name: rent-it
-version: 0.0.1-SNAPSHOT
+version: 0.1.0-SNAPSHOT
 api-version: 1.16
 depend: [Vault, LuckPerms, ProtocolLib]
 commands:
