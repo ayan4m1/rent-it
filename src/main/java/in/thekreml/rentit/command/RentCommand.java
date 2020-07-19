@@ -24,7 +24,7 @@ public class RentCommand implements CommandExecutor {
       return true;
     }
 
-    if (!command.getLabel().equalsIgnoreCase("rent")) {
+    if (!command.getLabel().equalsIgnoreCase(Constants.COMMAND_RENT)) {
       return false;
     }
 
@@ -35,9 +35,9 @@ public class RentCommand implements CommandExecutor {
     }
 
     switch (args[0].toLowerCase()) {
-      case "register":
+      case Constants.COMMAND_REGISTER:
         return onRegisterCommand(player, command, args);
-      case "unregister":
+      case Constants.COMMAND_UNREGISTER:
         return onUnregisterCommand(player, command, args);
       default:
         player.sendMessage(Constants.ERROR_USAGE);

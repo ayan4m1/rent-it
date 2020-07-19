@@ -23,4 +23,8 @@ public class Constants {
   public static final String MESSAGE_USE = "Use /rent on this anvil to rent it!";
   public static final String MESSAGE_REGISTER = "Registered this anvil!";
   public static final String MESSAGE_UNREGISTER = "Unregistered this anvil!";
+
+  public static final String COMMAND_RENT = "rent";
+  public static final String COMMAND_REGISTER = "register";
+  public static final String COMMAND_UNREGISTER = "unregister";
 }

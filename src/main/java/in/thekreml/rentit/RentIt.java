@@ -2,6 +2,7 @@ package in.thekreml.rentit;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import in.thekreml.rentit.command.RentCommand;
+import in.thekreml.rentit.constant.Constants;
 import in.thekreml.rentit.data.DataRegistry;
 import in.thekreml.rentit.listener.AnvilEffectListener;
 import in.thekreml.rentit.listener.DeviceUsageListener;
@@ -80,7 +81,7 @@ public class RentIt extends JavaPlugin {
     Bukkit.getPluginManager().registerEvents(new DeviceUsageListener(this), this);
     ProtocolLibrary.getProtocolManager().addPacketListener(new AnvilEffectListener(this));
 
-    final PluginCommand command = getCommand("rent");
+    final PluginCommand command = getCommand(Constants.COMMAND_RENT);
 
     if (command != null) {
       command.setExecutor(new RentCommand(this));
