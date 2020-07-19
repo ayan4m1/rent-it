@@ -55,8 +55,21 @@ public class AnvilEffectListener extends PacketAdapter {
       return;
     }
 
-    device.getRenters().remove(player.getName());
-    player.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
+    final Integer remaining = device.getRenters().get(player.getName());
+    if (remaining == null || remaining == 0) {
+      plugin.getLog().warning(
+          String.join("", "Player ", player.getName(), " was able to use a rented anvil while not on the list!")
+      );
+      player.closeInventory(InventoryCloseEvent.Reason.CANT_USE);
+      return;
+    }
+
+    if (remaining - 1 > 0) {
+      device.getRenters().put(player.getName(), remaining - 1);
+    } else {
+      device.getRenters().remove(player.getName());
+    }
+
     plugin.getDataRegistry().save();
   }
 
