@@ -46,6 +46,8 @@ public class DeviceUsageListener implements Listener {
       return;
     }
 
+    // send a usage example to the player and block their usage
+    // if they are not a renter. if they are, then proceed normally.
     if (!device.getRenters().containsKey(player.getName())) {
       player.sendMessage(Constants.MESSAGE_USE);
       event.setCancelled(true);
