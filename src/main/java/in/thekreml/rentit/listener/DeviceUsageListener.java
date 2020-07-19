@@ -21,16 +21,12 @@ public class DeviceUsageListener implements Listener {
 
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
-    plugin.getLog().finest("Handling onPlayerInteract");
-
     if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-      plugin.getLog().fine("Player did not right click a block!");
       return;
     }
 
     final Block clickedBlock = event.getClickedBlock();
     if (clickedBlock == null || !BlockUtils.isAnvil(clickedBlock)) {
-      plugin.getLog().fine("Player did not right click an anvil!");
       return;
     }
 
