@@ -44,12 +44,12 @@ public class AnvilEffectListener extends PacketAdapter {
         onAnvilBreakEffect(event, player, location);
         break;
       case ANVIL_USE_EFFECT:
-        onAnvilUseEffect(event, player, location);
+        onAnvilUseEffect(player, location);
         break;
     }
   }
 
-  private void onAnvilUseEffect(PacketEvent event, Player player, Location location) {
+  private void onAnvilUseEffect(Player player, Location location) {
     final Device device = plugin.getDataRegistry().findDevice(location);
     if (device == null) {
       return;
