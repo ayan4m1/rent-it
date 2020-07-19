@@ -2,6 +2,7 @@ package in.thekreml.rentit;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import in.thekreml.rentit.command.RentCommand;
+import in.thekreml.rentit.config.ConfigModel;
 import in.thekreml.rentit.constant.Constants;
 import in.thekreml.rentit.data.DataRegistry;
 import in.thekreml.rentit.listener.AnvilEffectListener;
@@ -10,12 +11,16 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class RentIt extends JavaPlugin {
+  private ConfigModel config;
   private Economy economy;
   private Permission permissions;
   private Logger log;
@@ -56,7 +61,18 @@ public class RentIt extends JavaPlugin {
 
   @Override
   public void onEnable() {
+    config = new ConfigModel();
     log = this.getLogger();
+
+    try {
+      this.getConfig().load(Constants.PATH_CONFIG);
+      config.setCost(this.getConfig().getInt("cost"));
+      config.setUsages(this.getConfig().getInt("usages"));
+    } catch (IOException e) {
+      log.severe(String.join("" , "IOException during config read: ", e.getMessage()));
+    } catch (InvalidConfigurationException e) {
+      log.severe(String.join("" , "InvalidConfigurationException during config read: ", e.getMessage()));
+    }
 
     final RegisteredServiceProvider<Permission> permsProvider = Bukkit.getServicesManager().getRegistration(Permission.class);
     if (permsProvider == null) {
