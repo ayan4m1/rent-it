@@ -62,21 +62,23 @@ public class RentCommand implements CommandExecutor {
       return false;
     }
 
-    if (!plugin.getEconomy().has(player, 10)) {
+    if (!plugin.getEconomy().has(player, Constants.COST)) {
       player.sendMessage(Constants.ERROR_INSUFFICIENT_BALANCE);
       return false;
     }
 
-    final EconomyResponse withdrawalResponse = plugin.getEconomy().withdrawPlayer(player, 10);
+    final EconomyResponse withdrawalResponse = plugin.getEconomy().withdrawPlayer(player, Constants.COST);
 
     if (!withdrawalResponse.transactionSuccess()) {
       player.sendMessage(Constants.ERROR_WITHDRAWAL);
       return false;
     }
 
-    device.getRenters().put(player.getName(), 1);
+    device.getRenters().put(player.getName(), Constants.USAGES);
     plugin.getDataRegistry().save();
-    player.sendMessage("Paid $10 to rent this anvil!");
+    player.sendMessage(
+        String.join("", "Paid $", String.valueOf(Constants.COST), " to rent this anvil!")
+    );
     return true;
   }
 

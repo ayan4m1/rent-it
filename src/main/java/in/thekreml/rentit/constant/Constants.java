@@ -1,6 +1,9 @@
 package in.thekreml.rentit.constant;
 
 public class Constants {
+  public static final Integer COST = 10;
+  public static final Integer USAGES = 5;
+
   public static final String PERMISSION_USAGE = "rentit.usage";
   public static final String PERMISSION_REGISTER = "rentit.register";
   public static final String PERMISSION_UNREGISTER = "rentit.deregister";
