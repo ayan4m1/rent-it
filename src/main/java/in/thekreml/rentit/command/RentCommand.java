@@ -149,13 +149,13 @@ public class RentCommand implements CommandExecutor {
       return null;
     }
 
-    final Device existingDevice = plugin.getDataRegistry().findDevice(anvil.getLocation());
-    if (existingDevice == null) {
+    final Device device = plugin.getDataRegistry().findDevice(anvil.getLocation());
+    if (device == null) {
       return null;
     }
 
-    existingDevice.setBlock(anvil);
+    device.setBlock(anvil);
 
-    return existingDevice;
+    return device;
   }
 }
