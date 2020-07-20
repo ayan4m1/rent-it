@@ -40,7 +40,9 @@ public class DeviceUsageListener implements Listener {
 
     final Player player = event.getPlayer();
     if (!plugin.getPermissions().has(player, Constants.PERMISSION_USAGE)) {
-      plugin.getLog().info(String.join("", "Player ", player.getDisplayName(), " does not have permission to use anvil!"));
+      plugin.getLog().info(
+          String.join("", "Player ", player.getDisplayName(), " does not have permission to use anvil!")
+      );
       player.sendMessage(Constants.ERROR_PERMISSION);
       event.setCancelled(true);
       return;
