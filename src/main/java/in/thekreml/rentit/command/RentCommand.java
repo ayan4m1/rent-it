@@ -69,7 +69,6 @@ public class RentCommand implements CommandExecutor {
     }
 
     final EconomyResponse withdrawalResponse = plugin.getEconomy().withdrawPlayer(player, cost);
-
     if (!withdrawalResponse.transactionSuccess()) {
       player.sendMessage(Constants.ERROR_WITHDRAWAL);
       return false;
@@ -94,8 +93,8 @@ public class RentCommand implements CommandExecutor {
       return false;
     }
 
-    final Device existingDevice = plugin.getDataRegistry().findDevice(anvil.getLocation());
-    if (existingDevice != null) {
+    final Device device = plugin.getDataRegistry().findDevice(anvil.getLocation());
+    if (device != null) {
       player.sendMessage(Constants.ERROR_ALREADY_REGISTERED);
       return false;
     }
@@ -155,7 +154,6 @@ public class RentCommand implements CommandExecutor {
     }
 
     device.setBlock(anvil);
-
     return device;
   }
 }
