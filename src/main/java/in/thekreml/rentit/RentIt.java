@@ -59,6 +59,12 @@ public class RentIt extends JavaPlugin {
       final int cost = this.getConfig().getInt(Constants.CONFIG_KEY_COST);
       final int usages = this.getConfig().getInt(Constants.CONFIG_KEY_USAGES);
 
+      if (cost < 0) {
+        throw new InvalidConfigurationException("Cost cannot be less than zero!");
+      } else if (usages < 1) {
+        throw new InvalidConfigurationException("Usages cannot be less than one!");
+      }
+
       configModel.setCost(cost);
       configModel.setUsages(usages);
 
