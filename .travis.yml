@@ -16,5 +16,5 @@ deploy:
   file: "build/libs/rent-it-*.jar"
   file_glob: true
   skip_cleanup: true
-  #on:
-  #  tags: true
+  on:
+    tags: true
