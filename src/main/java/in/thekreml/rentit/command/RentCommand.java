@@ -21,7 +21,7 @@ public class RentCommand implements CommandExecutor {
   @Override
   public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
     if (!(sender instanceof Player)) {
-      return true;
+      return false;
     }
 
     if (!command.getLabel().equalsIgnoreCase(Constants.COMMAND_RENT)) {
