@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class DeviceRemoveListener implements Listener {
-  private RentIt plugin;
+  private final RentIt plugin;
 
   public DeviceRemoveListener(RentIt plugin) {
     this.plugin = plugin;
