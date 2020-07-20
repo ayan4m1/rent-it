@@ -8,6 +8,7 @@ import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import in.thekreml.rentit.RentIt;
 import in.thekreml.rentit.data.Device;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -16,9 +17,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class AnvilEffectListener extends PacketAdapter {
   private final RentIt plugin;
-  // todo: no magic numbers here
-  private static final int ANVIL_BREAK_EFFECT = 1029;
-  private static final int ANVIL_USE_EFFECT = 1030;
+  private static final int ANVIL_BREAK_EFFECT = Effect.ANVIL_BREAK.getId();
+  private static final int ANVIL_USE_EFFECT = Effect.ANVIL_USE.getId();
 
   public AnvilEffectListener(RentIt plugin) {
     super(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_EVENT);
@@ -39,17 +39,14 @@ public class AnvilEffectListener extends PacketAdapter {
     final BlockPosition position = positions.read(0);
     final Location location = new Location(player.getWorld(), position.getX(), position.getY(), position.getZ());
 
-    switch (effectId) {
-      case ANVIL_BREAK_EFFECT:
-        onAnvilBreakEffect(event, player, location);
-        break;
-      case ANVIL_USE_EFFECT:
-        onAnvilUseEffect(player, location);
-        break;
+    if (effectId == ANVIL_BREAK_EFFECT) {
+      onAnvilBreakEffect(event, player, location);
+    } else {
+      onAnvilUseEffect(event, player, location);
     }
   }
 
-  private void onAnvilUseEffect(Player player, Location location) {
+  private void onAnvilUseEffect(PacketEvent event, Player player, Location location) {
     final Device device = plugin.getDataRegistry().findDevice(location);
     if (device == null) {
       return;
@@ -60,6 +57,8 @@ public class AnvilEffectListener extends PacketAdapter {
       plugin.getLog().warning(
           String.join("", "Player ", player.getName(), " was able to use a rented anvil while not on the list!")
       );
+      event.setCancelled(true);
+      // todo: try to undo whatever the player just did
       player.closeInventory(InventoryCloseEvent.Reason.CANT_USE);
       return;
     }
