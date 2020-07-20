@@ -6,7 +6,6 @@ group 'in.thekreml'
 version '0.1.1-SNAPSHOT'
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven { url 'https://papermc.io/repo/repository/maven-public/' }
     maven { url 'https://jitpack.io' }
@@ -16,6 +15,6 @@ repositories {
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT'
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
-    compileOnly 'com.comphenix.protocol:ProtocolLib:4.6.1-SNAPSHOT'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.6.0-SNAPSHOT'
     compile 'net.luckperms:api:5.0'
 }
