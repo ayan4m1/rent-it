@@ -2,7 +2,7 @@ os: linux
 dist: bionic
 language: java
 jdk:
-  - oraclejdk8
+  - openjdk8
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
