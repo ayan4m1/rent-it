@@ -6,6 +6,7 @@ import in.thekreml.rentit.config.ConfigModel;
 import in.thekreml.rentit.constant.Constants;
 import in.thekreml.rentit.data.DataRegistry;
 import in.thekreml.rentit.listener.AnvilEffectListener;
+import in.thekreml.rentit.listener.DeviceRemoveListener;
 import in.thekreml.rentit.listener.DeviceUsageListener;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -95,6 +96,7 @@ public class RentIt extends JavaPlugin {
     dataRegistry.load();
 
     Bukkit.getPluginManager().registerEvents(new DeviceUsageListener(this), this);
+    Bukkit.getPluginManager().registerEvents(new DeviceRemoveListener(this), this);
     ProtocolLibrary.getProtocolManager().addPacketListener(new AnvilEffectListener(this));
 
     final PluginCommand command = getCommand(Constants.COMMAND_RENT);
