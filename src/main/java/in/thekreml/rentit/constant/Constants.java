@@ -18,8 +18,8 @@ public class Constants {
   public static final String ERROR_WITHDRAWAL = "Error trying to withdraw rental fee!";
   public static final String ERROR_USAGE = "Usage: /rent [register|unregister]";
 
-  public static final String PATH_DATABASE = "./plugins/RentIt/data.json";
-  public static final String PATH_CONFIG = "./plugin/RentIt/config.json";
+  public static final String PATH_DATABASE = "./plugins/rent-it/data.json";
+  public static final String PATH_CONFIG = "./plugin/rent-it/config.json";
 
   public static final String MESSAGE_USE = "Use /rent on this anvil to rent it!";
   public static final String MESSAGE_REGISTER = "Registered this anvil!";
