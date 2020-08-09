@@ -2,7 +2,7 @@ main: in.thekreml.rentit.RentIt
 name: rent-it
 version: 0.1.3
 api-version: 1.16
-depend: [Vault, LuckPerms, ProtocolLib]
+depend: [Vault, ProtocolLib]
 commands:
   rent:
     description: Create/modify rental properties
