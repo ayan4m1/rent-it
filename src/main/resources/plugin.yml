@@ -1,6 +1,6 @@
 main: in.thekreml.rentit.RentIt
 name: rent-it
-version: 0.1.3
+version: 0.1.4
 api-version: 1.16
 depend: [Vault, ProtocolLib]
 commands:
