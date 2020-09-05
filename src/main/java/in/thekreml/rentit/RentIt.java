@@ -12,11 +12,9 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 public class RentIt extends JavaPlugin {
@@ -49,37 +47,8 @@ public class RentIt extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    configModel = new ConfigModel();
+    configModel = ConfigModel.load(this);
     log = this.getLogger();
-
-    try {
-      this.saveDefaultConfig();
-      this.getConfig().load(Constants.PATH_CONFIG);
-
-      final int cost = this.getConfig().getInt(Constants.CONFIG_KEY_COST);
-      final int usages = this.getConfig().getInt(Constants.CONFIG_KEY_USAGES);
-
-      if (cost < 0) {
-        throw new InvalidConfigurationException("Cost cannot be less than zero!");
-      } else if (usages < 1) {
-        throw new InvalidConfigurationException("Usages cannot be less than one!");
-      }
-
-      configModel.setCost(cost);
-      configModel.setUsages(usages);
-
-      log.info(
-          String.join("", "Configured to charge $",
-              String.valueOf(cost), " for ", String.valueOf(usages), " uses"
-          )
-      );
-    } catch (IOException e) {
-      log.severe(String.join("" , "IOException during config read: ", e.getMessage()));
-      return;
-    } catch (InvalidConfigurationException e) {
-      log.severe(String.join("" , "InvalidConfigurationException during config read: ", e.getMessage()));
-      return;
-    }
 
     final RegisteredServiceProvider<Permission> permsProvider = Bukkit.getServicesManager().getRegistration(Permission.class);
     if (permsProvider == null) {
