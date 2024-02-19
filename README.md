@@ -2,11 +2,11 @@
 
 ## prerequisites
 
-The following are required to run rent-it
+The following are required to run rent-it:
 
- * [Paper](https://papermc.io/ci/job/Paper-1.16) 1.16 build 88+
+ * [Paper](https://api.papermc.io/v2/projects/paper/versions/1.20.4/builds/430/downloads/paper-1.20.4-430.jar) 1.20.4 build 430+
  * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7
- * [ProtocolLib](https://ci.dmulloy2.net/job/ProtocolLib/472/) build 472
+ * [ProtocolLib](https://ci.dmulloy2.net/job/ProtocolLib//lastBuild/) build 679+
  * A plugin that supports the Vault Permissions API
  * A plugin that supports the Vault Economy API
 
