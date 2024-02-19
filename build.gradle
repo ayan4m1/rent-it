@@ -3,17 +3,17 @@ plugins {
 }
 
 group 'in.thekreml'
-version '0.1.4'
+version '0.2.0'
 
 repositories {
     mavenCentral()
-    maven { url 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
     maven { url 'https://jitpack.io' }
-    maven { url 'https://repo.dmulloy2.net/nexus/repository/public/' }
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
 }
 
 dependencies {
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
-    compileOnly 'com.comphenix.protocol:ProtocolLib:4.6.0-SNAPSHOT'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
 }
