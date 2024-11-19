@@ -4,9 +4,15 @@
 
 The following are required to run rent-it:
 
- * [Paper](https://api.papermc.io/v2/projects/paper/versions/1.20.4/builds/430/downloads/paper-1.20.4-430.jar) 1.20.4 build 430+
- * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7
- * [ProtocolLib](https://ci.dmulloy2.net/job/ProtocolLib//lastBuild/) build 679+
+ * One of the following versions of Paper:
+   * 1.20.1
+   * 1.20.4 build 430+
+   * 1.20.6
+   * 1.21.3 build 131+
+
+ * [Paper](https://papermc.io/downloads) 1.20.4 build 430+ **OR** 1.21.1 build 131+
+ * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7.1
+ * [ProtocolLib](https://github.com/dmulloy2/ProtocolLib/releases/tag/5.3.0) 5.3.0
  * A plugin that supports the Vault Permissions API
  * A plugin that supports the Vault Economy API
 
