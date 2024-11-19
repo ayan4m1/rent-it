@@ -2,8 +2,10 @@ plugins {
     id 'java'
 }
 
+def mcVersion = paperApiVersion.substring(0, paperApiVersion.indexOf("-"))
+
 group 'in.thekreml'
-version "${pluginVersion}-${paperApiVersion.substring(0, paperApiVersion.indexOf("-"))}"
+version "${pluginVersion}-${mcVersion}"
 
 repositories {
     mavenCentral()
@@ -16,4 +18,12 @@ dependencies {
     compileOnly "io.papermc.paper:paper-api:${paperApiVersion}"
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultApiVersion}"
     compileOnly "com.comphenix.protocol:ProtocolLib:${protocolLibVersion}"
+}
+
+processResources {
+    filter {
+        String line -> line
+                .replaceAll("\\{pluginVersion}", pluginVersion)
+                .replaceAll("\\{apiVersion}", mcVersion)
+    }
 }
