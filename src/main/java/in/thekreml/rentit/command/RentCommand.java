@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class RentCommand implements CommandExecutor {
   private final RentIt plugin;
@@ -19,8 +20,8 @@ public class RentCommand implements CommandExecutor {
   }
 
   @Override
-  public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-    if (!(sender instanceof Player)) {
+  public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final String[] args) {
+    if (!(sender instanceof Player player)) {
       return false;
     }
 
@@ -28,21 +29,18 @@ public class RentCommand implements CommandExecutor {
       return false;
     }
 
-    final Player player = (Player)sender;
-
     if (args.length == 0) {
       return onUseCommand(player, command, args);
     }
 
-    switch (args[0].toLowerCase()) {
-      case Constants.COMMAND_REGISTER:
-        return onRegisterCommand(player, command, args);
-      case Constants.COMMAND_UNREGISTER:
-        return onUnregisterCommand(player, command, args);
-      default:
+    return switch (args[0].toLowerCase()) {
+      case Constants.COMMAND_REGISTER -> onRegisterCommand(player, command, args);
+      case Constants.COMMAND_UNREGISTER -> onUnregisterCommand(player, command, args);
+      default -> {
         player.sendMessage(Constants.ERROR_USAGE);
-        return false;
-    }
+        yield false;
+      }
+    };
   }
 
   private boolean onUseCommand(final Player player, final Command command, final String[] args) {
@@ -76,9 +74,7 @@ public class RentCommand implements CommandExecutor {
 
     device.getRenters().put(player.getName(), plugin.getConfigModel().getUsages());
     plugin.getDataRegistry().save();
-    player.sendMessage(
-        String.join("", "Paid $", String.valueOf(cost), " to rent this anvil!")
-    );
+    player.sendMessage(String.format("Paid $%d to rent this anvil!", cost));
     return true;
   }
 

@@ -64,7 +64,7 @@ public class DataRegistry {
         model.getDevices().removeIf((device) -> {
           final World world = Bukkit.getWorld(device.getWorldName());
           if (world == null) {
-            log.warning(String.join("", "Culled device because it is in the no-longer-extant world ", device.getWorldName()));
+            log.warning(String.format("Culled device because it is in the no-longer-extant world %s", device.getWorldName()));
             return true;
           }
 
