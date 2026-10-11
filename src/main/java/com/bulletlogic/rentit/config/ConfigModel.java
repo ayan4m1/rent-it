@@ -1,6 +1,6 @@
-package in.thekreml.rentit.config;
+package com.bulletlogic.rentit.config;
 
-import in.thekreml.rentit.constant.Constants;
+import com.bulletlogic.rentit.constant.Constants;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 

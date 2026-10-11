@@ -1,9 +1,9 @@
-package in.thekreml.rentit.listener;
+package com.bulletlogic.rentit.listener;
 
-import in.thekreml.rentit.RentIt;
-import in.thekreml.rentit.constant.Constants;
-import in.thekreml.rentit.data.Device;
-import in.thekreml.rentit.util.BlockUtils;
+import com.bulletlogic.rentit.RentIt;
+import com.bulletlogic.rentit.constant.Constants;
+import com.bulletlogic.rentit.data.Device;
+import com.bulletlogic.rentit.util.BlockUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

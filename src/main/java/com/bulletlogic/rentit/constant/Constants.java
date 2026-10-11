@@ -1,4 +1,4 @@
-package in.thekreml.rentit.constant;
+package com.bulletlogic.rentit.constant;
 
 public class Constants {
   public static final String CONFIG_KEY_COST = "cost";

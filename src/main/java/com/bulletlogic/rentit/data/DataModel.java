@@ -1,4 +1,4 @@
-package in.thekreml.rentit.data;
+package com.bulletlogic.rentit.data;
 
 import java.util.HashSet;
 import java.util.Set;

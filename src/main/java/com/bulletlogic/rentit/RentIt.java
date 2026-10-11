@@ -1,13 +1,13 @@
-package in.thekreml.rentit;
+package com.bulletlogic.rentit;
 
 import com.comphenix.protocol.ProtocolLibrary;
-import in.thekreml.rentit.command.RentCommand;
-import in.thekreml.rentit.config.ConfigModel;
-import in.thekreml.rentit.constant.Constants;
-import in.thekreml.rentit.data.DataRegistry;
-import in.thekreml.rentit.listener.AnvilEffectListener;
-import in.thekreml.rentit.listener.DeviceRemoveListener;
-import in.thekreml.rentit.listener.DeviceUsageListener;
+import com.bulletlogic.rentit.command.RentCommand;
+import com.bulletlogic.rentit.config.ConfigModel;
+import com.bulletlogic.rentit.constant.Constants;
+import com.bulletlogic.rentit.data.DataRegistry;
+import com.bulletlogic.rentit.listener.AnvilEffectListener;
+import com.bulletlogic.rentit.listener.DeviceRemoveListener;
+import com.bulletlogic.rentit.listener.DeviceUsageListener;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;

@@ -1,4 +1,4 @@
-package in.thekreml.rentit.listener;
+package com.bulletlogic.rentit.listener;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
@@ -6,8 +6,8 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.BlockPosition;
-import in.thekreml.rentit.RentIt;
-import in.thekreml.rentit.data.Device;
+import com.bulletlogic.rentit.RentIt;
+import com.bulletlogic.rentit.data.Device;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.block.Block;

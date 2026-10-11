@@ -1,4 +1,4 @@
-package in.thekreml.rentit.util;
+package com.bulletlogic.rentit.util;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -1,7 +1,7 @@
-package in.thekreml.rentit.listener;
+package com.bulletlogic.rentit.listener;
 
-import in.thekreml.rentit.RentIt;
-import in.thekreml.rentit.data.Device;
+import com.bulletlogic.rentit.RentIt;
+import com.bulletlogic.rentit.data.Device;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
