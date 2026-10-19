@@ -17,7 +17,7 @@ repositories {
 dependencies {
     compileOnly "io.papermc.paper:paper-api:${paperApiVersion}"
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultApiVersion}"
-    compileOnly "com.comphenix.protocol:ProtocolLib:${protocolLibVersion}"
+    compileOnly "net.dmulloy2:ProtocolLib:${protocolLibVersion}"
 }
 
 processResources {
