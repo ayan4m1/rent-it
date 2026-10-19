@@ -124,7 +124,7 @@ public class RentCommand implements CommandExecutor {
   }
 
   private Block getTargetAnvil(final Player player) {
-    final Block targetBlock = player.getTargetBlock(6);
+    final Block targetBlock = player.getTargetBlockExact(6);
     if (targetBlock == null) {
       player.sendMessage(Constants.ERROR_NO_TARGET);
       return null;
