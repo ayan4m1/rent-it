@@ -4,7 +4,7 @@ plugins {
 
 def mcVersion = paperApiVersion.substring(0, paperApiVersion.indexOf("-"))
 
-group 'in.thekreml'
+group 'com.bulletlogic'
 version "${pluginVersion}-${mcVersion}"
 
 repositories {
